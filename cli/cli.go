@@ -26,7 +26,10 @@ func main()  {
 		fmt.Fprintf(conn, containerId + "\n")
 
 		//Localhost and Stream
-		message, _ := bufio.NewReader(conn).ReadString('\n')
+		message, err := bufio.NewReader(conn).ReadString('\n')
+		if err != nil {
+			panic(err)
+		}
 		fmt.Print("Message from server: "+message)
 	}
 }
