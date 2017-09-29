@@ -8,17 +8,15 @@ import (
 )
 
 var (
-	bind    = flag.String("b", ":9999", "Address to bind on")
+	bind    = flag.String("b", "localhost:9999", "Address to bind on")
 	conn_type = "tcp"
+	//write container id
 	containerId = "39111edf6286"
 )
-const(
-	CONN_TYPE = "tcp"
-	CONN_HOST = "localhost:8080"
-)
+
 
 func main()  {
-	conn, err := net.Dial(conn_type, "localhost:9999")
+	conn, err := net.Dial(conn_type, *bind)
 	if err != nil{
 		fmt.Print("Can't connect to server")
 	}
