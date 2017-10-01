@@ -81,15 +81,17 @@ func (p Proxy) handle(up net.Conn, containerID string) {
 		panic(err)
 	}
 
-
 	// Container inspect
 	info,err := cli.ContainerInspect(ctx, containerID)
 	if err != nil {
 		panic(err)
-
 	}
+
 	//parsing in json
-	prJson, _ := json.Marshal(info.NetworkSettings.Ports)
+	prJson, err := json.Marshal(info.NetworkSettings.Ports)
+	if err != nil {
+		panic(err)
+	}
 
 	//Send information about host and port container
 	up.Write([]byte(prJson))
